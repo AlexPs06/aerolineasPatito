@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aerolineaspatito.compraBoletosControllers.PrevisualizarController">
+    <stylesheets>
+        <URL value="@/aerolineaspatito/compraBoletosCSS/previsualizar.css" />
+    </stylesheets>
+   <children>
+      <VBox layoutX="30.0" layoutY="34.0" prefHeight="312.0" prefWidth="255.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="256.0" text="Datos de usuario(s)">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="datosUsuarios" editable="false" prefHeight="282.0" prefWidth="255.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="301.0" layoutY="34.0" prefHeight="204.0" prefWidth="286.0" spacing="10.0">
+         <children>
+            <Label fx:id="VueloRedondo" prefHeight="35.0" prefWidth="256.0" text="Datos de compra">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="vueloIda" prefHeight="35.0" prefWidth="256.0" text="Datos de compra">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="vueloRegreso" prefHeight="35.0" prefWidth="256.0" text="Datos de compra">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="fechas" prefHeight="35.0" prefWidth="256.0" text="Datos de compra">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="costo" prefHeight="35.0" prefWidth="256.0" text="Datos de compra">
+               <font>
+                  <Font name="Arial Black" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="142.0" layoutY="355.0" prefHeight="37.0" prefWidth="286.0" spacing="165.0">
+         <children>
+            <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button fx:id="aceptar" mnemonicParsing="false" onAction="#aceptar" text="Aceptar" />
+         </children>
+      </HBox>
+      <TextField fx:id="cantidad" layoutX="300.0" layoutY="311.0" prefHeight="25.0" prefWidth="209.0" promptText="Cantidad" />
+      <Label layoutX="300.0" layoutY="272.0" prefHeight="17.0" prefWidth="209.0" text="Cantidad pagada por el usuario">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

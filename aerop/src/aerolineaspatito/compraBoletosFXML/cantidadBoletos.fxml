@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="903.0" prefWidth="804.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aerolineaspatito.compraBoletosControllers.CantidadBoletosController">
+    <stylesheets>
+        <URL value="@/aerolineaspatito/compraBoletosCSS/cantidadboletos.css" />
+    </stylesheets>
+   <children>
+      <Button fx:id="aceptar" layoutX="651.0" layoutY="233.0" mnemonicParsing="false" onAction="#aceptar" text="Buscar vuelos" />
+      <Label fx:id="letras" alignment="CENTER" contentDisplay="TOP" layoutX="287.0" layoutY="225.0" prefHeight="66.0" prefWidth="241.0" text="Cantidad de boletos" visible="false" />
+      <Button fx:id="regresar" layoutX="50.0" layoutY="42.0" mnemonicParsing="false" onAction="#regresar" text="regresar" />
+      <HBox alignment="CENTER" layoutX="7.0" layoutY="104.0" prefHeight="77.0" prefWidth="793.0" spacing="20.0">
+         <children>
+            <ComboBox fx:id="estadoSalidaBox" onAction="#EstadoSalida" prefWidth="150.0" promptText="Estado de salida" />
+            <ComboBox fx:id="municipioSalidaBox" onAction="#municipioSalidaBox" prefWidth="150.0" promptText="Municipio de salida" />
+            <ComboBox fx:id="estadoDestinoBox" onAction="#EstadoDestino" prefWidth="150.0" promptText="Estado destino" />
+            <ComboBox fx:id="municipioDestinoBox" onAction="#MunicipioDestinoBox" prefWidth="150.0" promptText="Municipio destino" />
+            <CheckBox mnemonicParsing="false" onAction="#visualizar" text="Viaje redondo" />
+         </children>
+      </HBox>
+      <HBox fx:id="mostrar" alignment="CENTER" layoutX="143.0" layoutY="268.0" prefHeight="77.0" prefWidth="528.0" spacing="30.0" visible="false">
+         <children>
+            <Button mnemonicParsing="false" onAction="#menosCinco" prefHeight="25.0" prefWidth="46.0" text="-5" />
+            <Button mnemonicParsing="false" onAction="#menos" prefHeight="25.0" prefWidth="46.0" text="-" />
+            <Label fx:id="cantidad" alignment="CENTER" contentDisplay="TOP" prefHeight="51.0" prefWidth="57.0" text="1" />
+            <Button mnemonicParsing="false" onAction="#suma" prefHeight="25.0" prefWidth="46.0" text="+" />
+            <Button mnemonicParsing="false" onAction="#sumaCinco" prefHeight="25.0" prefWidth="46.0" text="+5" />
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll" layoutX="89.0" layoutY="354.0" prefHeight="243.0" prefWidth="637.0" visible="false">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="245.0" prefWidth="625.0">
+               <children>
+                  <ListView fx:id="listaMostrar" layoutX="-2.0" layoutY="-7.0" prefHeight="212.0" prefWidth="625.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <HBox alignment="CENTER" layoutX="11.0" layoutY="156.0" prefHeight="77.0" prefWidth="793.0" spacing="20.0">
+         <children>
+            <DatePicker fx:id="diaSalida" editable="false" promptText="Fecha de salida" />
+            <DatePicker fx:id="diaLlegada" editable="false" promptText="Fecha de regreso" visible="false" />
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll1" layoutX="84.0" layoutY="613.0" prefHeight="243.0" prefWidth="637.0" visible="false">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="245.0" prefWidth="625.0">
+               <children>
+                  <ListView fx:id="listaMostrar1" layoutX="-2.0" layoutY="-7.0" prefHeight="212.0" prefWidth="625.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Button fx:id="pasarDatos" layoutX="667.0" layoutY="279.0" mnemonicParsing="false" onAction="#pasarParametro" text="Aceptar" />
+   </children>
+</AnchorPane>

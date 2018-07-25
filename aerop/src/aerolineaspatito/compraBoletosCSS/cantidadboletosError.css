@@ -1,0 +1,29 @@
+
+.mainFxmlClass {
+
+}
+
+#estadoSalidaBox{
+    -fx-border-color: #ff3333;
+
+}
+#municipioSalidaBox{
+    -fx-border-color: #ff3333;
+
+}
+#estadoDestinoBox{
+    -fx-border-color: #ff3333;
+
+}
+#municipioDestinoBox{
+    -fx-border-color: #ff3333;
+
+}
+#diaSalida{
+    -fx-border-color: #ff3333;
+
+}
+#diaLlegada{
+    -fx-border-color: #ff3333;
+
+}
