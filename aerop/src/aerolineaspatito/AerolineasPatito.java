@@ -41,7 +41,7 @@ public class AerolineasPatito extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("MenuLogin.fxml"));
         
         Scene scene = new Scene(root);
-        
+        //hola puto
         stage.setScene(scene);
         stage.show();
     }
