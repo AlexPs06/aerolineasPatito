@@ -44,6 +44,7 @@ public class AerolineasPatito extends Application {
         //hola puto
         stage.setScene(scene);
         stage.show();
+        /*subio*/
     }
 
     /**
