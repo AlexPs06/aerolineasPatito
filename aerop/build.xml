@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- You may freely edit this file. See commented blocks below for --><!-- some examples of how to customize the build. --><!-- (If you delete it and reopen the project it will be recreated.) --><!-- By default, only the Clean and Build commands use this build script. --><project name="aerolineasPatito" default="default" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <target name="-post-jar">
+    <jar jarfile="${dist.jar}" update="true">
+    <zipfileset src="C:\Users\luis_\Desktop\dist\lib\itext-5.0.5.jar" excludes="META-INF/*"/>
+    <zipfileset src="C:\Users\luis_\Desktop\dist\lib\mysql-connector-java-5.1.23-bin.jar" excludes="META-INF/*"/>
+
+    <manifest>
+    <attribute name="AerolineasPatito-Class" value="aerolineaspatito.AerolineasPatito"/>
+    </manifest>
+    </jar>
+    </target>
     <description>Builds, tests, and runs the project aerolineasPatito.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
