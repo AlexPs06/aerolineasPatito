@@ -5,7 +5,6 @@
  */
 package aerolineaspatito;
 
-import aerolineaspatito.conexionBaseDatos.ConexionBD;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,6 +59,7 @@ public class MenuController implements Initializable {
     
     @FXML
     private void cerrarSesion(ActionEvent event) throws IOException{
+        a.abrirVentana("/aerolineaspatito/MenuLogin");
         a.cerrarVentana(cerrarSesion);
     }
             

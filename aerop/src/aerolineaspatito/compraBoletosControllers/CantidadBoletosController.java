@@ -28,6 +28,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -135,9 +136,12 @@ public class CantidadBoletosController implements Initializable {
         CompraBoletoController op=(CompraBoletoController)fxmlLoader.getController();
         op.recibirParametros(instaci1,Integer.valueOf(idVuelo),Integer.valueOf(idVuelo2) , Integer.valueOf(this.cantidad.getText()),condicion );
         Scene sc=new Scene(root);
+        stage.getIcons().add(new Image("/aerolineaspatito/logoPatitoi.png"));
         stage.setScene(sc);
         stage.alwaysOnTopProperty();
-        stage.initModality(Modality.APPLICATION_MODAL);  
+       stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.show();
         a.cerrarVentana(aceptar);     
         }else{
@@ -234,19 +238,41 @@ public class CantidadBoletosController implements Initializable {
                         fechita=fechaIda.toString();
                         fechita2=fechaRegreso.toString();
                         ConexionBD con = new ConexionBD();
-                        this.scroll.setVisible(true);
-                        this.mostrar.setVisible(true);
-                        this.letras.setVisible(true);
-                        this.scroll1.setVisible(true);
-                        this.pasarDatos.setVisible(true);
+
                         ObservableList<String> vuelosDisponibles =FXCollections.observableArrayList(con.selectVuelosDisponibles(error2, error4, con.SelectFechas(fechita)));
                         this.listaMostrar.setItems(vuelosDisponibles);
+                        if(vuelosDisponibles.size()<1){
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("No hay boleto");
+                            alert.setHeaderText("No se encontró boleto");
+                            alert.setContentText("No hay boletos para ese destino en esa fecha");
+                            alert.showAndWait();                      
+                        }
+                        else{
                         vuelosDisponibles =FXCollections.observableArrayList(con.selectVuelosDisponibles(error4, error2, con.SelectFechas(fechita2)));
-                        this.listaMostrar1.setItems(vuelosDisponibles);
-                        System.out.println("Cosa de ida: " + this.listaMostrar.getSelectionModel().getSelectedItem());
-                        System.out.println("Cosa de regreso: " + this.listaMostrar1.getSelectionModel().getSelectedItem());
-                        System.out.println("2.- Estado Salida: " + error1 + "   Municipio Salida: " + error2 + "    Estado Destino: " + error3 + "  Municipio Destino: " + error4 + "   Fecha: " + fechita + "  Fecha vuelta: " + fechita2);
-                        
+                        this.listaMostrar1.setItems(vuelosDisponibles);                            
+                            if(vuelosDisponibles.size()<1){
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("No hay boleto");
+                                alert.setHeaderText("No se encontró boleto de regreso");
+                                alert.setContentText("No hay boletos para ese destino en esa fecha");
+                                alert.showAndWait();               
+                            }
+                            else{
+                                this.scroll.setVisible(true);
+                                this.mostrar.setVisible(true);
+                                this.letras.setVisible(true);
+                                this.scroll1.setVisible(true);
+                                this.pasarDatos.setVisible(true);
+                                System.out.println("Cosa de ida: " + this.listaMostrar.getSelectionModel().getSelectedItem());
+                                System.out.println("Cosa de regreso: " + this.listaMostrar1.getSelectionModel().getSelectedItem());
+                                System.out.println("2.- Estado Salida: " + error1 + "   Municipio Salida: " + error2 + "    Estado Destino: " + error3 + "  Municipio Destino: " + error4 + "   Fecha: " + fechita + "  Fecha vuelta: " + fechita2);
+
+                            }
+                            
+                        }
+
+
                     } catch (Exception ex) {
                       //Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
                   }                    
@@ -258,22 +284,35 @@ public class CantidadBoletosController implements Initializable {
                         String cadenaEntera;
                         fechita=fechaIda.toString();
                         ConexionBD con = new ConexionBD();
-                        this.scroll.setVisible(true);
-                        this.mostrar.setVisible(true);
-                        this.letras.setVisible(true);
                         ObservableList<String> vuelosDisponibles =FXCollections.observableArrayList(con.selectVuelosDisponibles(error2, error4, con.SelectFechas(fechita)));
-                        this.listaMostrar.setItems(vuelosDisponibles);
-                        cadenaEntera=this.listaMostrar.getSelectionModel().getSelectedItem();
-                        partes=cadenaEntera.split(" ");
-                        String fecha=partes[1];
-                        String hora=partes[3];
-                        String idVuelo=partes[7].substring(0, partes[7].length()-2);
-                        String idFecha=partes[7].substring(2);
-                        String precio=partes[9];
-                        System.out.println("fecha: " + fecha + "    hora: " + hora + "  idVuelo: " + idVuelo + "    idFecha: " + idFecha + "    precio: " + precio);
-                        this.pasarDatos.setVisible(true);
-                        System.out.println("3.- Estado Salida: " + error1 + "   Municipio Salida: " + error2 + "    Estado Destino: " + error3 + "  Municipio Destino: " + error4 + "Fecha: " + fechita);
-                        pintarCuadrosRequeridos();
+                        System.out.println("esto es tamaño "+vuelosDisponibles.size());
+                        
+                        if(vuelosDisponibles.size()<1){
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("No hay boleto");
+                            alert.setHeaderText("No se encontró boleto");
+                            alert.setContentText("No hay boletos para ese destino en esa fecha");
+                            alert.showAndWait();     
+                        }
+                        else{
+                            this.scroll.setVisible(true);
+                            this.mostrar.setVisible(true);
+                            this.letras.setVisible(true);
+                            this.listaMostrar.setItems(vuelosDisponibles);
+                            this.listaMostrar.setVisible(true);
+                            cadenaEntera=this.listaMostrar.getSelectionModel().getSelectedItem();
+                            partes=cadenaEntera.split(" ");
+                            String fecha=partes[1];
+                            String hora=partes[3];
+                            String idVuelo=partes[7].substring(0, partes[7].length()-2);
+                            String idFecha=partes[7].substring(2);
+                            String precio=partes[9];
+                            System.out.println("fecha: " + fecha + "    hora: " + hora + "  idVuelo: " + idVuelo + "    idFecha: " + idFecha + "    precio: " + precio);
+                            this.pasarDatos.setVisible(true);
+                            System.out.println("3.- Estado Salida: " + error1 + "   Municipio Salida: " + error2 + "    Estado Destino: " + error3 + "  Municipio Destino: " + error4 + "Fecha: " + fechita);
+                            pintarCuadrosRequeridos();                            
+                        }
+
                     } 
                     catch (Exception ex) {
                       //Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -331,7 +370,9 @@ public class CantidadBoletosController implements Initializable {
         }else{
             this.diaLlegada.setVisible(condicion);
             condicion=true;
+            scroll1.setVisible(false);
         }
+        
     }
 
     @FXML

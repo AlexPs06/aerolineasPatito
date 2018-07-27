@@ -6,24 +6,15 @@
 package aerolineaspatito;
 
 import aerolineaspatito.compraBoletosClases.GenerarPdf;
-import aerolineaspatito.conexionBaseDatos.ConexionBD;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  *
@@ -49,7 +40,7 @@ public class MenuLoginController implements Initializable {
                         if(contra.equals("1234")){ 
                            a.abrirVentana("Menu");
                             GenerarPdf pdf = new GenerarPdf();
-                           pdf.generarPdf("gfd", "dg", "gd", "gdg", "da", "dg", "g", "g", "gf", "gff", "gdf", "gdf", "gdf", "gdf", "d", "fgd");
+                          // pdf.generarPdf("gfd", "dg", "gd", "gdg", "da", "dg", "g", "g", "gf", "gff", "gdf", "gdf", "gdf", "gdf", "d", "fgd");
 
                            a.cerrarVentana(loguear);
                         }else{

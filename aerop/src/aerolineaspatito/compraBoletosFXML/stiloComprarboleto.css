@@ -1,0 +1,90 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.fondo{
+    
+  /*-fx-background-color:#1E90FF;*/
+   -fx-background-image:url("mountains-1985027.jpg");
+    -fx-border-width:5;
+    -fx-border-color:white;
+}
+
+.textF{
+    
+    -fx-font-family:Microsoft JhengHei;
+    -fx-font-size:13;
+    
+}
+
+.boton{ 
+    -fx-background-color:white;
+    -fx-cursor: hand;
+}
+.regresar{
+    -fx-background-color:transparent;
+    -fx-background-image: url("volverNuevo.png");
+    -fx-background-size: 46 ,36;
+     -fx-cursor: hand;
+
+    
+}
+.botnPequeno{
+    -fx-background-color:transparent;
+    -fx-cursor: hand;
+   
+} 
+
+.boton:hover{
+    /*#1E90FF*/
+  -fx-effect: dropshadow(three-pass-box,black,20, 0.2, 0, 0);
+   
+}
+
+
+.botnPequeno:hover{
+    /*#1E90FF*/
+   -fx-effect: dropshadow(three-pass-box,black,20, 0.2, 0, 0);  
+}
+
+.texto{
+      
+      -fx-text-fill:black;
+      
+}
+
+.botonestransparent{
+     -fx-background-color:transparent;
+      -fx-border-color:transparent;
+      -fx-cursor: hand;
+}
+
+
+.botonA{
+    -fx-border-width:3;
+    -fx-border-color:transparent;
+    -fx-background-color:transparent;
+    -fx-border-radius:5;
+    -fx-cursor: hand;
+}
+
+.botonA:hover{
+   -fx-border-color:white;
+   -fx-effect: dropshadow(three-pass-box,white , 2, 0, 0, 0);
+  
+   
+}
+
+.botonICon{
+    -fx-border-color:transparent;
+    -fx-background-color:transparent;
+    -fx-cursor: hand;
+}
+
+.botonICon:hover{
+   -fx-effect: dropshadow(three-pass-box,white , 20,0.3 , 0, 5);
+}

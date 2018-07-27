@@ -618,6 +618,119 @@ public ArrayList<Fechas> SelectFechas(String fecha){
         }    
         return false;
     }
+    
+        public String obtenerSalida(String idBoleto){
+        String id = null;
+        try {
+        conn = DriverManager.getConnection(url,"root","");
+        st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT nombreEstado, nombreMunicipio FROM aeropuertosmexico INNER JOIN vuelo ON idOrigen=idAeropuertos WHERE idVuelo=(SELECT ventas.idVuelo FROM ventas WHERE idVenta='"+idBoleto+"')");
+    
+        while(rs.next()){
+            id=rs.getString("nombreEstado");
+            id=(id + " ");
+            id=(id+(rs.getString("nombreMunicipio")) );
+        }
+        conn.close();
+        return id;
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! "); 
+            System.err.println(e); 
+        }    
+        return null;
+
+    }
+    public String obtenerDestino(String idBoleto){
+        String id = null;
+        try {
+        conn = DriverManager.getConnection(url,"root","");
+        st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT nombreEstado, nombreMunicipio FROM aeropuertosmexico INNER JOIN vuelo ON idDestino=idAeropuertos WHERE idVuelo=(SELECT ventas.idVuelo FROM ventas WHERE idVenta='"+idBoleto+"')");
+    
+        while(rs.next()){
+            id=rs.getString("nombreEstado");
+            id=(id + " ");
+            id=(id+(rs.getString("nombreMunicipio")) );
+        }
+        conn.close();
+        return id;
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! "); 
+            System.err.println(e); 
+        }    
+        return null;
+
+    }
+    
+        public ArrayList <String> obtenerInfoUser(String idBoleto){
+        ArrayList <String> info = new ArrayList();
+        try {
+        conn = DriverManager.getConnection(url,"root","");
+        st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT idClase, idServicioEspecial, nombre, edad, sexo, telefono, direccion, pesoEquipaje, correo FROM datoscompradores INNER JOIN ventas ON ventas.idComprador=datoscompradores.idComprador WHERE ventas.idVenta='"+idBoleto+"'");
+    
+        while(rs.next()){
+            info.add(rs.getString("idClase"));
+            info.add(rs.getString("idServicioEspecial"));
+            info.add(rs.getString("nombre"));
+            info.add(rs.getString("edad"));
+            info.add(rs.getString("sexo"));
+            info.add(rs.getString("telefono"));
+            info.add(rs.getString("direccion"));
+            info.add(rs.getString("pesoEquipaje"));
+            info.add(rs.getString("correo"));
+            
+        }
+        conn.close();
+        return info;
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! "); 
+            System.err.println(e); 
+        }    
+        return null;
+
+    }
+        public String obtenerPrecio(String idBoleto){
+        String id = null;
+        try {
+        conn = DriverManager.getConnection(url,"root","");
+        st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT precio FROM vuelo INNER JOIN ventas ON vuelo.idVuelo=ventas.idVuelo WHERE ventas.idVenta='"+idBoleto+"'");
+    
+        while(rs.next()){
+            id=rs.getString("precio");
+        }
+        conn.close();
+        return id;
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! "); 
+            System.err.println(e); 
+        }    
+        return null;
+    }
+        public String obtenerDia(String idBoleto){
+        String id = null;
+        try {
+        conn = DriverManager.getConnection(url,"root","");
+        st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT dia FROM fechas INNER JOIN vuelo ON vuelo.idFecha=fechas.idFecha WHERE vuelo.idVuelo=(SELECT idVuelo FROM ventas WHERE idVenta='"+idBoleto+"')");
+    
+        while(rs.next()){
+            id=rs.getString("dia");
+        }
+        conn.close();
+        return id;
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! "); 
+            System.err.println(e); 
+        }    
+        return null;
+    }
 }
 
 

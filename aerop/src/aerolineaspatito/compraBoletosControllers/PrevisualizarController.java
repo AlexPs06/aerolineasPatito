@@ -21,6 +21,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -58,6 +59,8 @@ public class PrevisualizarController implements Initializable {
     String []vueloIdaArreglo;
     int costoIda =  0;
     int costoRegreso = 0;
+    @FXML
+    private AnchorPane anchor;
     /**
      * Initializes the controller class.
      */
@@ -65,6 +68,8 @@ public class PrevisualizarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         costo.setText("El costo total es de: $" + 15);
+        this.anchor.setStyle(getClass().getResource("/aerolineaspatito/compraBoletosFXML/stiloComprarboleto.css").toExternalForm());
+
     }    
 
     @FXML

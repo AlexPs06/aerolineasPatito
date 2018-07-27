@@ -45,28 +45,17 @@ public class CambiarBoletoController implements Initializable {
     private ComboBox<String> asientoBox;
     
     @FXML
-    private TextField numeroVuelo1;
-    @FXML
     private TextField numeroBoleto1;
-    @FXML
-    private TextField nuevaHora1;                 
     @FXML
     private Button volver;
     @FXML
     private Button aceptar;
     @FXML
-    private Label letras;
-    @FXML
-    private HBox mostrar;
-    @FXML
     private ScrollPane scroll;
     @FXML
-    private ScrollPane scroll1;
-    @FXML
     private ListView<String> listaMostrar;
-    @FXML
-    private ListView<String> listaMostrar1;                   
-    
+    AerolineasPatito a = new AerolineasPatito();
+   
     
     @FXML
     private void volver(ActionEvent event){
@@ -79,7 +68,7 @@ public class CambiarBoletoController implements Initializable {
         }
     }
     
-    @FXML
+   @FXML
     private void buscar(ActionEvent event){
         ArrayList <String> municipios = new ArrayList();
         ConexionBD con;
@@ -127,28 +116,96 @@ public class CambiarBoletoController implements Initializable {
     }
     @FXML
     private void handleButtonAction(ActionEvent event) {
+        ArrayList <String> info = new ArrayList();
         ConexionBD con;
         con = new ConexionBD();
-        String  numeroBoleto, asiento, asiento2=null;
+        String  numeroBoleto, asiento, clase=null, se=null, asiento2=null;
         String[] partir;
         numeroBoleto=numeroBoleto1.getText();
         asiento = asientoBox.getValue();
         String cadenaEntera, nuevoVuelo;
         cadenaEntera=this.listaMostrar.getSelectionModel().getSelectedItem();
         System.out.println("LISTA: " + cadenaEntera);
-        partir=cadenaEntera.split("/");
-        System.out.println("PARTIR 1: " + partir[0] + "   PARTIR 2: " + partir[1]);
-        nuevoVuelo=partir[0].substring(partir[0].length()-1);
-        System.out.println("NUEVO VUELO: " + nuevoVuelo);
-        if(asiento.equals("Ventana")){
-            asiento2="36";
+        if(cadenaEntera==null){
+            errorVacio2();
         }
-        if(asiento.equals("Medio")){
-            asiento2="37";
+        else{
+            partir=cadenaEntera.split("/");
+            System.out.println("PARTIR 1: " + partir[0] + "   PARTIR 2: " + partir[1]);
+            nuevoVuelo=partir[0].substring(partir[0].length()-1);
+            System.out.println("NUEVO VUELO: " + nuevoVuelo + " BOLETO: " + numeroBoleto);
+            if(numeroBoleto.equals(nuevoVuelo)){
+                errorBoleto();
+            }
+            else{
+                if(asiento.equals("Ventana")){
+                    asiento2="36";
+                }
+                if(asiento.equals("Medio")){
+                    asiento2="37";
+                }
+                if(asiento.equals("Pasillo")){
+                    asiento2="38";
+                }
+                
+                con.cambiar(numeroBoleto, asiento2, nuevoVuelo);
+                String origen = con.obtenerSalida(numeroBoleto);
+                String destino = con.obtenerDestino(numeroBoleto);
+                info=con.obtenerInfoUser(numeroBoleto);
+                String precio=con.obtenerPrecio(numeroBoleto);
+                String dia=con.obtenerDia(numeroBoleto);
+                if(info.get(0).equals("1")){
+                    clase="Turista";
+                }
+                if(info.get(0).equals("2")){
+                    clase="Ejecutivo";
+                }
+                if(info.get(0).equals("3")){
+                    clase="VIP";
+                }
+                //SE
+               if(info.get(1).equals("36")){
+                    se="Asiento, Ventana";
+                }
+                if(info.get(1).equals("37")){
+                    se="Asiento, Medio";
+                }
+                if(info.get(1).equals("38")){
+                    se="Asiento, Pasillo";
+                }
+                if(info.get(1).equals("39")){
+                    se="Discapacidad";
+                }     
+                if(info.get(1).equals("40")){
+                    se="NoSE";
+                }
+                
+                System.out.println("TODO:");
+                System.out.println("Origen: " + origen + " Destino: " + destino + " numVuelo: " + numeroBoleto + " clase: " + clase + " servicios: " + se + " nombre: " + info.get(2) + " edad: "
+                           + info.get(3) + " sexo: " + info.get(4) + " numT: " + info.get(5) + " direc: " + info.get(6) + " peso: " + info.get(7) + " correo: " + info.get(8) + " precio: " + precio + " dia: " + dia);             
+                
+
+                GenerarPdf pdf = new GenerarPdf();
+                pdf.generarPdf(origen, destino, "", "",numeroBoleto , clase, se, info.get(2), info.get(3) , info.get(4), info.get(5), info.get(6), info.get(7), info.get(8), precio , dia);
+    
+                
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Cambiado");
+                alert.setHeaderText("Boleto cambiado.");
+                alert.setContentText("El boleto ha sido cambiado. Se generará el nuevo boleto");
+                alert.showAndWait();
+                
+                
+                try {
+                    a.abrirVentana("/aerolineaspatito/Menu");
+                    a.cerrarVentana(aceptar);
+                } catch (IOException ex) {
+                //Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+             
         }
-        if(asiento.equals("Pasillo")){
-            asiento2="38";
-        }    
+
         //System.out.println("TODO BIEN:        #Boleto: " + numeroBoleto + "  #Vuelo: " + numeroVuelo + " nuevaHora: " + nuevaHora + " Asiento: " + asiento);
        
                 
@@ -161,6 +218,13 @@ public class CambiarBoletoController implements Initializable {
         alert.setContentText("Introduce el número de boleto y vuelo.");
         alert.showAndWait();
     }
+    public void errorVacio2(){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Campo obligatorio.");
+        alert.setContentText("Selecciona un vuelo.");
+        alert.showAndWait();
+    }
     
     public void errorCaracter(String cosa){
             Alert alert = new Alert(AlertType.ERROR);
@@ -170,11 +234,19 @@ public class CambiarBoletoController implements Initializable {
             alert.showAndWait();       
     }
     
+    public void errorBoleto(){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Es el mismo vuelo.");
+            alert.setContentText("No puedes seleccionar el mismo vuelo.");
+            alert.showAndWait();       
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         asientoBox.setItems(asientosLista);
         asientoBox.setValue("Ventana");  
-    }    
+    }     
     
 }
 

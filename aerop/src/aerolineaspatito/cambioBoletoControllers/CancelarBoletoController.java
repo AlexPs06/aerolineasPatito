@@ -32,7 +32,7 @@ public class CancelarBoletoController implements Initializable {
     private Button cancelar;
     AerolineasPatito a = new AerolineasPatito();
   
-    @FXML
+  @FXML
     private void volver(ActionEvent event){
         try {
             AerolineasPatito a = new AerolineasPatito();
@@ -43,7 +43,7 @@ public class CancelarBoletoController implements Initializable {
         }
     }
     
-    @FXML
+ @FXML
     private void handleButtonAction(ActionEvent event) {
         ConexionBD con;
         con = new ConexionBD();
@@ -58,6 +58,8 @@ public class CancelarBoletoController implements Initializable {
                 alert.setTitle("Cancelado");
                 alert.setHeaderText("Boleto cancelado.");
                 alert.setContentText("El boleto " + numeroBoleto + " ha sido cancelado.");
+                alert.showAndWait();
+
                 try {
                     a.abrirVentana("/aerolineaspatito/Menu");
                     a.cerrarVentana(cancelar);

@@ -53,10 +53,10 @@ public class AgregarMascotaController implements Initializable {
     private TextField folio;
     @FXML
     private Label kg;
-    @FXML
-    private Label Precio;
     String folius;
     String datos[];
+    @FXML
+    private Label label;
    
     /**
      * Initializes the controller class.
@@ -80,6 +80,7 @@ public class AgregarMascotaController implements Initializable {
                             datos  = bd.SelectMascotasComprador(Integer.parseInt(folius));
                             ta.setText(datos[0]);
                             aceptar.setVisible(true);
+                            label.setVisible(true);
                             tam.setVisible(true);
                             Nombre.setVisible(true);
                             peso.setVisible(true);
@@ -141,6 +142,8 @@ public class AgregarMascotaController implements Initializable {
                             alert.setContentText("Elija una dimension de jaula valida");
 
                             alert.showAndWait();
+        }else if(Nombre.getText().length() == 0){
+            new Alert(Alert.AlertType.ERROR, "Debe ingresar un nombre", ButtonType.OK).showAndWait();
         }else{
                 String cb = String.valueOf(tam.getValue());
                 if(vacuna.isSelected()){
@@ -160,7 +163,7 @@ public class AgregarMascotaController implements Initializable {
                     System.out.println("FW: " + finalWeight);
                     double cobrar = 0;
                     if (finalWeight <= 25){
-                        ButtonType buton = new Alert(Alert.AlertType.ERROR, "Equipaje maximo excedido ¿desea continuar? se le cobrara un porcentaje extra por kilo de equipaje extra", ButtonType.YES, ButtonType.NO).showAndWait().get();
+                        ButtonType buton = new Alert(Alert.AlertType.INFORMATION, "Equipaje maximo excedido ¿desea continuar? se le cobrara un porcentaje extra por kilo de equipaje extra", ButtonType.YES, ButtonType.NO).showAndWait().get();
                                 if (buton.getText().equals("Sí")) {
                                     cobrar = (finalWeight + weight - 25) * 50;
                                     int id = bd.insertarMascota(Integer.parseInt(datos[2]), Nombre.getText(), String.valueOf(finalWeight),String.valueOf(tam.getValue()), 0);        
@@ -168,26 +171,26 @@ public class AgregarMascotaController implements Initializable {
                                                                         System.out.println("esto es folio "+folius);
 
                                     pdf.generarPdfMacotas(folius + "P" + id, Nombre.getText(), "Vacunado",String.valueOf(finalWeight) , String.valueOf(tam.getValue()), String.valueOf(cobrar));
-                                    new Alert(Alert.AlertType.ERROR, "El costo extra es: " + cobrar, ButtonType.OK).showAndWait();
-                                    a.abrirVentana("/aerolineasPatito/MenuLogin");
-                                    a.cerrarVentana(buscar);
+                                    new Alert(Alert.AlertType.INFORMATION, "El costo extra es: " + cobrar, ButtonType.OK).showAndWait();
+                                    a.abrirVentana("/aerolineaspatito/Menu");
+                                    a.cerrarVentana(aceptar);
                                 }else{
                                     
                                 }
                     }else{
                          finalWeight += weight;
                          if(finalWeight > 25){
-                             ButtonType buton = new Alert(Alert.AlertType.ERROR, "Equipaje maximo excedido ¿desea continuar? se le cobrara un porcentaje extra por kilo de equipaje extra", ButtonType.YES, ButtonType.NO).showAndWait().get();
+                             ButtonType buton = new Alert(Alert.AlertType.INFORMATION, "Equipaje maximo excedido ¿desea continuar? se le cobrara un porcentaje extra por kilo de equipaje extra", ButtonType.YES, ButtonType.NO).showAndWait().get();
                                 if (buton.getText().equals("Sí")) {
                                     cobrar = weight * 50;
-                                    new Alert(Alert.AlertType.ERROR, "El costo extra es: " + cobrar, ButtonType.OK).showAndWait();
+                                    new Alert(Alert.AlertType.INFORMATION, "El costo extra es: " + cobrar, ButtonType.OK).showAndWait();
                                    int id = bd.insertarMascota(Integer.parseInt(datos[2]), Nombre.getText(), String.valueOf(weight),String.valueOf(tam.getValue()), 0);
                                     GenerarPdf  pdf = new GenerarPdf();
                                     /*(String origen,String destino,String horaSalida,String horaLlegada,String numVuelo,String nombre,String vacunas,String peso,String jaula,String precio){*/
                                     System.out.println("esto es folio "+folius);
                                     pdf.generarPdfMacotas(folius+ "P" + id, Nombre.getText(), "Vacunado",String.valueOf(weight) , String.valueOf(tam.getValue()), String.valueOf(cobrar));
-                                    a.abrirVentana("/aerolineasPatito/MenuLogin");
-                                    a.cerrarVentana(buscar);
+                                    a.abrirVentana("/aerolineaspatito/Menu");
+                                    a.cerrarVentana(aceptar);
                                 }
                                 else{
                                                                         System.out.println("esto es folio "+folius);
@@ -195,20 +198,21 @@ public class AgregarMascotaController implements Initializable {
                                    int id = bd.insertarMascota(Integer.parseInt(datos[2]), Nombre.getText(), String.valueOf(weight),String.valueOf(tam.getValue()), 0);
                                     GenerarPdf  pdf = new GenerarPdf();
                                     pdf.generarPdfMacotas(folius+ "P" + id, Nombre.getText(), "Vacunado",String.valueOf(weight) , String.valueOf(tam.getValue()), String.valueOf(cobrar));
-                                    a.abrirVentana("/aerolineasPatito/MenuLogin");
-                                    a.cerrarVentana(buscar);
+                                    a.abrirVentana("/aerolineaspatito/Menu");
+                                    a.cerrarVentana(aceptar);
                                 }
                          }else{
                              
                          }
                     }
                 }catch(Exception e){
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
                                     alert.setTitle("Error al agregar a mascota");
                                     alert.setHeaderText("Parece que hay un error");
                                     alert.setContentText("El peso debe ser un número");
 
                                     alert.showAndWait();
+                                    System.out.println("E: " +e);
                 }
                 System.out.println("CB:" + cb);
         }

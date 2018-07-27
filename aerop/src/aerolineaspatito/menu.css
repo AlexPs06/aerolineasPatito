@@ -5,3 +5,48 @@
 .mainFxmlClass {
 
 }
+
+.fondo{
+    -fx-background-image:url("mountains-1985027.jpg");
+   /*-fx-background-color:#1E90FF;*/
+    -fx-border-width:5;
+    -fx-border-color:white;
+}
+
+.textF{
+    
+    -fx-font-family:Microsoft JhengHei;
+    -fx-font-size:13;
+    
+}
+
+.boton{
+    -fx-border-width:3;
+    -fx-border-color:transparent;
+    -fx-background-color:transparent;
+    -fx-border-radius:5;
+    -fx-cursor: hand;
+}
+
+.boton:hover{
+   -fx-border-color:white;
+   -fx-effect: dropshadow(three-pass-box,white , 2, 0, 0, 0);
+  
+   
+}
+
+.texto{
+      
+      -fx-text-fill:black;
+      
+}
+
+.botonICon{
+    -fx-border-color:transparent;
+    -fx-background-color:transparent;
+    -fx-cursor: hand;
+}
+
+.botonICon:hover{
+   -fx-effect: dropshadow(three-pass-box,white , 20,0.8 , 0, 0);
+}

@@ -27,6 +27,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -97,12 +99,25 @@ public class CompraBoletoController implements Initializable {
     private Label precio;
     @FXML
     private ToggleGroup sE;
+    @FXML
+    private ImageView imagenFlecha;
+    @FXML
+    private AnchorPane anchor;
+    @FXML
+    private ImageView imagenBoleto;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
-        
+       //Image imagenBoleto=new Image(getClass().getResource("/aerolineaspatito/compraBoletosFXML/").toExternalForm());
+       
+        this.anchor.setStyle(getClass().getResource("/aerolineaspatito/compraBoletosFXML/stiloComprarboleto.css").toExternalForm());
+        Image imagen = new Image (getClass().getResource("/aerolineaspatito/compraBoletosFXML/volverNuevo.png").toExternalForm());
+       imagenBoleto=new ImageView(imagen);
+       
+ 
+       this.imagenFlecha = new ImageView(imagen);
         asientoBox.setItems(asientosLista);
         claseBox.setItems(claseLista);
         datosComprador=new ArrayList<>();
@@ -243,7 +258,10 @@ public class CompraBoletoController implements Initializable {
     public boolean tieneNumeros(String cadena){
         for (int i = 0; i < cadena.length(); i++) {
             if (!Character.isLetter(cadena.charAt(i))) {
-                return true;
+                if (cadena.charAt(i)!=' ') {
+                    return true;    
+                }
+                
             }
         }
         return false;
@@ -305,6 +323,8 @@ public class CompraBoletoController implements Initializable {
                     AnchorPane root =(AnchorPane)fxmlLoader.load(getClass().getResource("/aerolineaspatito/compraBoletosFXML/Previsualizar.fxml").openStream());
                     PrevisualizarController op=(PrevisualizarController)fxmlLoader.getController();
                     op.recibirParametros(instaci1,datosComprador,idVueloida,idVueloregreso );
+                    stage.getIcons().add(new Image(getClass().getResource("/aerolineaspatito/logoPatitoi.png").toExternalForm()));
+
                     Scene sc=new Scene(root);
                     stage.setScene(sc);
                     stage.show();
